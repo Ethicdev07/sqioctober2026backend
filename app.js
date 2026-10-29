@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const morgan = require('morgan');
+const authRoute = require("./routes/authRoutes")
 
 const app = express();
 
@@ -20,6 +21,10 @@ app.get("/api/v1", (req, res)=>{
         message: "Welcome to october backend class!"
     })
 });
+
+app.use("/api/v1/auth", authRoute)
+
+
 
 
 
