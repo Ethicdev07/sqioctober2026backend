@@ -1,19 +1,4 @@
 
-
-const users = []; //database
-
-
-
-module.exports = users;
-
-
-
-
-
-
-
-
-
 // const mongoose = require("mongoose");
 
 // const userSchema = new mongoose.Schema({
