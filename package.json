@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.js"
+    "dev": "node --watch server.js"
   },
   "keywords": [],
   "author": "Ethicdev",
@@ -17,8 +17,8 @@
     "cryptojs": "^2.5.3",
     "dotenv": "^18.0.8",
     "express": "^5.3.0",
-    "express-jwt": "^8.5.1",
     "joi": "^18.3.1",
+    "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.11.4",
     "morgan": "^1.12.1",
     "nodemon": "^1.0.2"
