@@ -44,9 +44,7 @@ const validateLogin = (object) => {
       .required()
       .trim()
       .min(8)
-      .error(
-        new Error("please provide passowrd, with minimum of 8 characters"),
-      ),
+    
   });
 
   return schema.validate(object)

@@ -25,6 +25,9 @@ const userSchema = new mongoose.Schema({
     trim: true,
     select: false
   },
+  verification_token: {
+    type: String
+  }
 //   role:{
 //     type: String,
 //     enum: ['user' | "admin"],
@@ -33,6 +36,9 @@ const userSchema = new mongoose.Schema({
 
 });
 
-const Users = mongoose.model("Users", userSchema);
+userSchema.methods.comparePassword = async function(password, hashedPassword) {
+  return await bcrypt.compare(password, hashedPassword)
+}
 
+const Users = mongoose.model("Users", userSchema);
 module.exports = Users;
