@@ -1,7 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const morgan = require('morgan');
-const authRoute = require("./routes/authRoutes")
+const authRoute = require("./routes/authRoutes");
+const userRoute = require("./routes/userRoutes")
 
 const app = express();
 
@@ -22,7 +23,9 @@ app.get("/api/v1", (req, res)=>{
     })
 });
 
-app.use("/api/v1/auth", authRoute)
+app.use("/api/v1/auth", authRoute);
+
+app.use("/api/v1/users", userRoute)
 
 
 

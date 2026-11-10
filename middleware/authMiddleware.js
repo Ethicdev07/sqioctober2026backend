@@ -9,7 +9,7 @@ const protectRoute = async (req, res, next) => {
 
     if (
       req.headers.authorization &&
-      req.headers.authorization.startWith("Bearer")
+      req.headers.authorization.startsWith("Bearer")
     ) {
       token = req.headers.authorization.split(" ")[1];
     }
@@ -23,7 +23,7 @@ const protectRoute = async (req, res, next) => {
     const user = await Users.findById(decoded.id);
 
     if (!user) {
-      return next(AppError("User with specified ID not found", 404));
+      return next(new AppError("User with specified ID not found", 404));
     }
 
     req.user = user;
@@ -50,3 +50,4 @@ module.exports = {
   protectRoute,
   verifyAdmin,
 };
+
