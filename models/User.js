@@ -28,6 +28,14 @@ const userSchema = new mongoose.Schema({
   },
   verification_token: {
     type: String
+  },
+  email_verified :{
+    type: Boolean,
+    default: false
+  },
+  bio: {
+    type: String,
+    trim: true
   }
 
 

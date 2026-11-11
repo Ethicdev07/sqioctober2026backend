@@ -6,7 +6,8 @@ const router = express.Router();
 
 
 router.route('/signup').post(authController.signUp);
-router.route("/login").post(authController.login)
+router.route("/login").post(authController.login);
+router.route("/verify/:email/:verificationToken").get(authController.verifyEmailAddress);
 
 
 

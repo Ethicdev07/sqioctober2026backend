@@ -58,9 +58,49 @@ const getUserProfile = async(req, res, next)=>{
 
 //write function to updateProfile fields just firstname, lastname
 
+const updateProfile = async(req, res, next)=>{
+    try {
+        const userId = req.user._id;
+        const user = await Users.findById(userId);
+
+        if(!user){
+            throw new AppError("User not found", 404)
+        };
+
+        const allowFields = ["firstname", "lastname", "bio"];
+
+        const fieldsToUpdate = Object.keys(req.body);
+
+        fieldsToUpdate.forEach((field)=>{
+            if(allowFields.includes(field)){
+                user[field] = req.body[field]
+            }
+            else{
+                throw new AppError(`Field ${field} is not allowed`, 400)
+            }
+        });
+
+        await user.save();
+
+        res.status(200).json({
+            message: "Profile updated successfully",
+            data: {
+                user
+            }
+        })
+
+    } catch (error) {
+        next(error.message);
+    }
+};
+
+
+//write for update password
+
 
 module.exports = {
     getAllUsers,
-    getUserProfile
+    getUserProfile,
+    updateProfile
 };
 
