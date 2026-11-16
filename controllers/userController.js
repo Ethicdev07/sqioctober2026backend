@@ -1,6 +1,8 @@
 
 const Users = require("../models/User");
 const AppError = require("../utils/AppError");
+const {dataUri} = require("../utils/multer");
+const {uploader} = require("../utils/cloudinary")
 
 //get all users
 
@@ -22,6 +24,56 @@ const getAllUsers = async(req, res, next)=>{
         
     } catch (error) {
         next(error)
+    }
+};
+
+
+//update profileipicture
+
+const updateProfilePicture = async(req, res, next)=>{
+    try {
+        
+        const userId = req.user._id;
+
+        const user = await Users.findById(userId);
+
+        if(!user){
+            throw new AppError(`User not found with id ${userId}`, 404)
+        };
+
+        const file = req.file;
+
+        if (!file) {
+            throw new AppError("Please upload an image file", 400);
+        }
+
+        const imageData = dataUri(file).content;
+
+       
+        
+
+        const result = await uploader.upload(imageData, {
+            folder: "October/profile_image"
+        });
+
+
+
+        user.profile_image = result.secure_url;
+
+        await user.save();
+
+        res.status(200).json({
+            message: "profile picture updated successfully",
+            data: {
+                user
+            }
+        })
+
+
+    } catch (error) {
+        next(error)
+        console.log(error.message);
+        
     }
 }
 
@@ -101,6 +153,7 @@ const updateProfile = async(req, res, next)=>{
 module.exports = {
     getAllUsers,
     getUserProfile,
-    updateProfile
+    updateProfile,
+    updateProfilePicture
 };
 

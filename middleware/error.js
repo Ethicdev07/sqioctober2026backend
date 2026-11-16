@@ -2,8 +2,8 @@ const AppError = require("./../utils/AppError");
 
 //Duplicate value in MongoDB
 const handleDuplicateError = (err)=>{
-    const dupKey = Objects.keys(err.keyValue)[0];
-    const dupValue = Objects.values(err.keyValue)[0];
+    const dupKey = Object.keys(err.keyValue)[0];
+    const dupValue = Object.values(err.keyValue)[0];
     console.log(dupKey,dupValue);
     const message = `Duplicate ${dupKey}: "${dupValue}".exist already`;
     return new AppError(message,400);
@@ -45,7 +45,7 @@ const sendDevError =  async (err, res)=>{
 };
 
 const prodDevError = async (err, res) => {
-    if(!err.isOpertional) {
+    if(err.isOperational) {
         res.status(err.statusCode).json({
             status: err.status,
             message: err.message,

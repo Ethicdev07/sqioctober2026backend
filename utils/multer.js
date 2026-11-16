@@ -1,0 +1,34 @@
+const multer = require("multer");
+const path = require("path");
+const DataUri = require("datauri/parser");
+
+const storage = multer.memoryStorage();
+
+const imageUploads = multer({
+  storage: storage,
+  limits: {
+    fileSize: 3 * 1024 * 1024, //3mb
+  },
+
+  fileFilter: (req, file, cb) => {
+    const filetypes = /jpeg|jpg|png/;
+    const mimetype = filetypes.test(file.mimetype);
+    const extname = filetypes.test(
+      path.extname(file.originalname).toLowerCase(),
+    );
+
+    if (mimetype && extname) {
+      return cb(null, true);
+    }
+    cb("Error: File upload only support the following filetypes- " + filetypes);
+  },
+
+}).single('profile_image');
+
+const dUri = new DataUri();
+
+const dataUri = (file) => {
+    return dUri.format(path.extname(file.originalname).toString(), file.buffer);
+};
+
+module.exports = { dataUri, imageUploads}

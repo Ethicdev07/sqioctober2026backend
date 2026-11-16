@@ -36,6 +36,9 @@ const userSchema = new mongoose.Schema({
   bio: {
     type: String,
     trim: true
+  },
+  profile_image: {
+    type: String
   }
 
 

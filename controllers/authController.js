@@ -218,7 +218,7 @@ const login = async(req, res, next)=>{
 };
 
 
-//write function for frogotPassword
+//write function for forgotPassword
 
 module.exports = { 
   signUp, 
