@@ -20,7 +20,7 @@ const imageUploads = multer({
     if (mimetype && extname) {
       return cb(null, true);
     }
-    cb("Error: File upload only support the following filetypes- " + filetypes);
+    cb("Error: File upload only support the following filetypes - " + filetypes);
   },
 
 }).single('profile_image');
